@@ -1,1 +1,16 @@
-HELLO
+{
+  "annualChildren" : [ {
+    "children" : [ {
+      "id" : 0,
+      "lastName" : "Cantemir",
+      "firstName" : "Maria",
+      "city" : "Timisoara",
+      "age" : 4,
+      "averageScore" : 10.0,
+      "niceScoreHistory" : [ 10.0 ],
+      "assignedBudget" : 0.0,
+      "receivedGifts" : [ ],
+      "giftsPreference" : [ "Board Games", "Clothes", "Books" ]
+    } ]
+  } ]
+}

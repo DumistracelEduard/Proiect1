@@ -9,7 +9,7 @@ public class InputData {
     private List<Object> dataStore = new ArrayList<>();
     private final List<AnnualChanges> annualChanges;
 
-    public InputData(final Integer numberOfYears, final double santaBudget, final List<child> childList,
+    public InputData(final Integer numberOfYears, final double santaBudget, final List<Child> childList,
                      final List<gift> giftList, final List<String> cityList, final List<AnnualChanges> annualChanges) {
         this.numberOfYears = numberOfYears;
         this.santaBudget = santaBudget;

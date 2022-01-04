@@ -17,15 +17,11 @@ public final class InputLoader {
         this.inputPath = inputPath;
     }
 
-    public String getInputPath() {
-        return inputPath;
-    }
-
     public InputData readData() {
         JSONParser jsonParser = new JSONParser();
         Integer numberOfYears = 0;
         double santaBudget = 0;
-        List<child> childList = new ArrayList<>();
+        List<Child> childList = new ArrayList<>();
         List<gift> giftList = new ArrayList<>();
         List<String> cityList = new ArrayList<>();
         List<AnnualChanges> annualChanges = new ArrayList<>();
@@ -39,7 +35,7 @@ public final class InputLoader {
                 JSONArray jsonChildren = (JSONArray) jsoninitialData.get(Constants.CHILDREN);
                 if(jsonChildren != null) {
                     for(Object jsonChild : jsonChildren) {
-                        childList.add(new child(Integer.parseInt(((JSONObject) jsonChild).get(Constants.ID).toString()),
+                        childList.add(new Child(Integer.parseInt(((JSONObject) jsonChild).get(Constants.ID).toString()),
                                 (((String)((JSONObject) jsonChild).get(Constants.LASTNAME))),
                                 (((String)((JSONObject) jsonChild).get(Constants.FIRSTNAME))),
                                 Integer.parseInt(((JSONObject) jsonChild).get(Constants.AGE).toString()),

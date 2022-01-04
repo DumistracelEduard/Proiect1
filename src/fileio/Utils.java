@@ -4,8 +4,16 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
+    public static ArrayList<Child> convertObject(final List<Object> array) {
+        ArrayList<Child> children = new ArrayList<>();
+        for(Object object : array) {
+            children.add((Child) object);
+        }
+        return children;
+    }
     public static ArrayList<String> convertJSONArrayString(final JSONArray array) {
         if(array != null) {
             ArrayList<String> finalArray = new ArrayList<>();
@@ -32,11 +40,11 @@ public class Utils {
         }
     }
 
-    public static ArrayList<child> convertJSONArrayChildren(final JSONArray array) {
+    public static ArrayList<Child> convertJSONArrayChildren(final JSONArray array) {
         if (array != null) {
-            ArrayList<child> newChildrenList = new ArrayList<>();
+            ArrayList<Child> newChildrenList = new ArrayList<>();
             for (Object object : array) {
-                newChildrenList.add(new child(Integer.parseInt(((JSONObject) object).get(Constants.ID).toString()),
+                newChildrenList.add(new Child(Integer.parseInt(((JSONObject) object).get(Constants.ID).toString()),
                         (String) ((JSONObject) object).get(Constants.LASTNAME),
                         (String) ((JSONObject) object).get(Constants.FIRSTNAME),
                         Integer.parseInt(((JSONObject) object).get(Constants.AGE).toString()),

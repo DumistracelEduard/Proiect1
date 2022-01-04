@@ -3,32 +3,45 @@ package fileio;
 import java.util.ArrayList;
 import java.util.List;
 
-public class child {
+public class Child {
     private final Integer id;
     private final String lastName;
     private final String firstName;
     private final String city;
     private Integer age;
-    private final ArrayList<String> giftsPreference;
+    private final ArrayList<String> giftsPreferences;
     private double averageScore;
     private final List<Double> niceScoreHistory;
     private double assignedBudget;
     private final List<gift> receivedGifts;
 
-    public child(Integer id, String lastName, String firstName, Integer age,
+    public Child(Integer id, String lastName, String firstName, Integer age,
                  String city, double averageScore,
-                 ArrayList<String> giftsPreference) {
+                 ArrayList<String> giftsPreferences) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
         this.age = age;
         this.city = city;
         this.averageScore = averageScore;
-        this.giftsPreference = giftsPreference;
+        this.giftsPreferences = giftsPreferences;
         this.niceScoreHistory = new ArrayList<>();
         this.niceScoreHistory.add(averageScore);
         this.assignedBudget = 0;
         this.receivedGifts = new ArrayList<>();
+    }
+
+    public Child(Child child) {
+        this.id = child.id;
+        this.lastName = child.lastName;
+        this.firstName = child.firstName;
+        this.age = child.age;
+        this.city = child.city;
+        this.averageScore = child.averageScore;
+        this.giftsPreferences = child.giftsPreferences;
+        this.niceScoreHistory = child.niceScoreHistory;
+        this.assignedBudget = child.assignedBudget;
+        this.receivedGifts = child.receivedGifts;
     }
 
     public void addNiceScore(double newScore) {
@@ -93,18 +106,18 @@ public class child {
     }
 
     public ArrayList<String> getGiftsPreference() {
-        return giftsPreference;
+        return giftsPreferences;
     }
 
     @Override
     public String toString() {
-        return "child{" +
+        return "Child{" +
                 "id=" + id +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", city='" + city + '\'' +
                 ", age=" + age +
-                ", giftsPreference=" + giftsPreference +
+                ", giftsPreferences=" + giftsPreferences +
                 ", averageScore=" + averageScore +
                 ", niceScoreHistory=" + niceScoreHistory +
                 ", assignedBudget=" + assignedBudget +

@@ -5,11 +5,11 @@ import java.util.List;
 public class AnnualChanges {
     private final double NewSantaBudget;
     private final List<gift> giftList;
-    private final List<child> newChildren;
+    private final List<Child> newChildren;
     private final List<ChildUpdate> childrenUpdates;
 
     public AnnualChanges(double newSantaBudget, List<gift> giftList,
-                         List<child> newChildren, List<ChildUpdate> childrenUpdates) {
+                         List<Child> newChildren, List<ChildUpdate> childrenUpdates) {
         NewSantaBudget = newSantaBudget;
         this.giftList = giftList;
         this.newChildren = newChildren;
@@ -24,7 +24,7 @@ public class AnnualChanges {
         return giftList;
     }
 
-    public List<child> getNewChildren() {
+    public List<Child> getNewChildren() {
         return newChildren;
     }
 
