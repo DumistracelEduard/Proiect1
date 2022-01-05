@@ -1,19 +1,59 @@
 package fileio;
 
+import fileio.InputClass.Child;
+import fileio.InputClass.ChildUpdate;
+import fileio.InputClass.Children;
+import fileio.InputClass.Gift;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class Utils {
+public class Utils{
+
+    public static void distributionGift(double budgetUnit, Children children, HashMap<String, ArrayList<Gift>> listGift) {
+        for (Child child : children.getChildren()) {
+            double buget = child.calculateBudget(budgetUnit);
+            for(String giftPreference : child.getGiftsPreferences()) {
+                if (listGift.get(giftPreference) != null && buget - listGift.get(giftPreference).get(0).getPrice() > 0.0) {
+                    buget -= listGift.get(giftPreference).get(0).getPrice();
+                    child.getReceivedGifts().add(listGift.get(giftPreference).get(0));
+;               }
+            }
+        }
+    }
+
+    public static HashMap<String, ArrayList<Gift>> convertObjectGift(final List<Object> array) {
+        HashMap<String, ArrayList<Gift>> listGift = new HashMap<>();
+        for (Object gift : array) {
+            Gift giftSearch = (Gift) gift;
+            if(listGift.containsKey(giftSearch.getCategory())) {
+                listGift.get(giftSearch.getCategory()).add(giftSearch);
+                Collections.sort(listGift.get(giftSearch.getCategory()), new Comparator<Gift>() {
+                    @Override
+                    public int compare(Gift o1, Gift o2) {
+                        return Double.compare(o1.getPrice(), o2.getPrice());
+                    }
+                });
+            } else {
+                ArrayList<Gift> newCategory = new ArrayList<>();
+                newCategory.add(giftSearch);
+                listGift.put(giftSearch.getCategory(), newCategory);
+            }
+        }
+        return listGift;
+    }
+
     public static ArrayList<Child> convertObject(final List<Object> array) {
         ArrayList<Child> children = new ArrayList<>();
         for(Object object : array) {
-            children.add((Child) object);
+            if (((Child) object).getAge() <= 18) {
+                children.add((Child) object);
+            }
         }
         return children;
     }
+
     public static ArrayList<String> convertJSONArrayString(final JSONArray array) {
         if(array != null) {
             ArrayList<String> finalArray = new ArrayList<>();
@@ -26,11 +66,11 @@ public class Utils {
         }
     }
 
-    public static ArrayList<gift> convertJSONArrayGift(final JSONArray array) {
+    public static ArrayList<Gift> convertJSONArrayGift(final JSONArray array) {
         if(array != null) {
-            ArrayList<gift> finalArrayGift = new ArrayList<>();
+            ArrayList<Gift> finalArrayGift = new ArrayList<>();
             for (Object object : array) {
-                finalArrayGift.add(new gift((String) ((JSONObject) object).get(Constants.PRODUCTNAME),
+                finalArrayGift.add(new Gift((String) ((JSONObject) object).get(Constants.PRODUCTNAME),
                         Double.parseDouble(((JSONObject) object).get(Constants.PRICE).toString()),
                         (String) ((JSONObject) object).get(Constants.CATEGORY)));
             }
@@ -49,9 +89,10 @@ public class Utils {
                         (String) ((JSONObject) object).get(Constants.FIRSTNAME),
                         Integer.parseInt(((JSONObject) object).get(Constants.AGE).toString()),
                         (String) ((JSONObject) object).get(Constants.CITY),
-                        Double.parseDouble(((JSONObject) object).get(Constants.NICESCORE).toString()),
                         Utils.convertJSONArrayString((JSONArray) ((JSONObject) object)
-                                .get(Constants.GIFTSPREFERENCES))
+                                .get(Constants.GIFTSPREFERENCES)),
+                        Double.parseDouble(((JSONObject) object).get(Constants.NICESCORE).toString())
+
                         ));
             }
             return newChildrenList;
